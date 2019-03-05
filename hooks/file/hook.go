@@ -46,13 +46,13 @@ func NewFileHook(config config.Configuration) (hook logrus.Hook, err error) {
 	hookConf := fileHookConfig{
 		Filename:   filename,
 		Daily:      config.GetBoolean("daily", true),
-		MaxDays:    config.GetInt64("max-days", 7),
+		MaxDays:    config.GetInt64("max-days", 15),
 		Rotate:     config.GetBoolean("rotate", true),
-		MaxLines:   config.GetInt64("max-lines", 10000),
-		MaxSize:    config.GetInt64("max-size", 1024),
+		MaxLines:   config.GetInt64("max-lines", 100000),
+		MaxSize:    config.GetInt64("max-size", 1024*1024*10),
 		RotatePerm: config.GetString("rotate-perm", "0440"),
 		Perm:       config.GetString("perm", "0660"),
-		Level:      config.GetInt32("level"),
+		Level:      config.GetInt32("level", LevelDebug),
 	}
 
 	w := newFileWriter()
@@ -108,13 +108,43 @@ func (p *FileHook) Fire(entry *logrus.Entry) (err error) {
 }
 
 func (p *FileHook) Levels() []logrus.Level {
-	return []logrus.Level{
-		logrus.PanicLevel,
-		logrus.FatalLevel,
-		logrus.ErrorLevel,
-		logrus.WarnLevel,
-		logrus.InfoLevel,
-		logrus.DebugLevel,
+	switch p.W.Level {
+	case LevelError:
+		{
+			return []logrus.Level{
+				logrus.PanicLevel,
+				logrus.FatalLevel,
+				logrus.ErrorLevel,
+			}
+		}
+	case LevelWarn:
+		{
+			return []logrus.Level{
+				logrus.PanicLevel,
+				logrus.FatalLevel,
+				logrus.ErrorLevel,
+				logrus.WarnLevel,
+			}
+		}
+	case LevelInfo:
+		{
+			return []logrus.Level{
+				logrus.PanicLevel,
+				logrus.FatalLevel,
+				logrus.ErrorLevel,
+				logrus.WarnLevel,
+				logrus.InfoLevel,
+			}
+		}
+	default:
+		return []logrus.Level{
+			logrus.PanicLevel,
+			logrus.FatalLevel,
+			logrus.ErrorLevel,
+			logrus.WarnLevel,
+			logrus.InfoLevel,
+			logrus.DebugLevel,
+		}
 	}
 }
 
