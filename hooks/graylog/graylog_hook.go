@@ -2,10 +2,8 @@ package graylog
 
 import (
 	"github.com/gogap/config"
-	"github.com/sirupsen/logrus"
-	"gopkg.in/gemnasium/logrus-graylog-hook.v2"
-
 	"github.com/gogap/logrus_mate"
+	"github.com/sirupsen/logrus"
 )
 
 type GraylogHookConfig struct {

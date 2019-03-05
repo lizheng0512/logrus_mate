@@ -8,7 +8,6 @@ import (
 	"github.com/gogap/config"
 	"github.com/gogap/logrus_mate"
 
-	"github.com/aliyun/aliyun-log-go-sdk"
 	"github.com/gogo/protobuf/proto"
 	"github.com/sirupsen/logrus"
 )

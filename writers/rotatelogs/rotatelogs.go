@@ -7,7 +7,6 @@ import (
 
 	"github.com/gogap/config"
 	"github.com/gogap/logrus_mate"
-	"github.com/lestrrat-go/file-rotatelogs"
 )
 
 type RedisIOConfig struct {

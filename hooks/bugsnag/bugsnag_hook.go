@@ -2,7 +2,6 @@ package bugsnag
 
 import (
 	"github.com/Shopify/logrus-bugsnag"
-	"github.com/bugsnag/bugsnag-go"
 	"github.com/sirupsen/logrus"
 
 	"github.com/gogap/config"
